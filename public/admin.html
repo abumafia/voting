@@ -222,7 +222,7 @@
                 button.innerHTML = `
                     <span class="flex items-center justify-center">
                         <span class="inline-block mr-2 animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-quantum-cyan"></span>
-                        CREATING QUANTUM ENTANGLEMENT...
+                        CREATING HALLAYM ENTANGLEMENT...
                     </span>
                 `;
                 
@@ -261,7 +261,7 @@
                 container.innerHTML = `
                     <div class="text-center py-12">
                         <div class="inline-block animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-quantum-cyan"></div>
-                        <p class="mt-4 text-quantum-cyan font-mono">QUERYING QUANTUM DATABASE...</p>
+                        <p class="mt-4 text-quantum-cyan font-mono">QUERYING HALLAYM DATABASE...</p>
                     </div>
                 `;
                 
@@ -309,7 +309,7 @@
                                     ${poll.options.map(option => `
                                         <li class="flex justify-between items-center">
                                             <span>${option.text}</span>
-                                            <span class="text-quantum-lime font-mono">${option.votes} QV</span>
+                                            <span class="text-quantum-lime font-mono">${option.votes} HV</span>
                                         </li>
                                     `).join('')}
                                 </ul>
@@ -372,7 +372,7 @@
         
         // Delete/Deactivate quantum poll
         async function deleteQuantumPoll(pollId) {
-            if (confirm('QUANTUM CONFIRMATION: ARE YOU SURE?')) {
+            if (confirm('HALLAYM CONFIRMATION: ARE YOU SURE?')) {
                 try {
                     const response = await fetch(`https://voting-toey.onrender.com/api/quantum/polls/${pollId}`, {
                         method: 'DELETE'
