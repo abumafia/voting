@@ -1,0 +1,67 @@
+/* Custom styles */
+.tab-btn.active {
+    border-bottom: 2px solid #3b82f6;
+    color: #3b82f6;
+}
+
+.emoji-btn:hover {
+    transform: scale(1.2);
+    transition: transform 0.2s;
+}
+
+#chat-messages::-webkit-scrollbar {
+    width: 6px;
+}
+
+#chat-messages::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+#chat-messages::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+#chat-messages::-webkit-scrollbar-thumb:hover {
+    background: #a1a1a1;
+}
+
+.message-animation {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.reaction-animation {
+    animation: pop 0.2s ease-in-out;
+}
+
+@keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* style.css fayliga qo'shing */
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.hover\:opacity-80:hover {
+    opacity: 0.8;
+}
+
+.hover\:underline:hover {
+    text-decoration: underline;
+}
+
+.transition-opacity {
+    transition: opacity 0.2s ease;
+}
+
+a[href^="/profile.html"] {
+    transition: color 0.2s ease;
+}

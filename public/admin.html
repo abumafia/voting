@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUANTUM ADMIN 2090 | Holographic Control Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        quantum: {
+                            dark: '#0a0a12',
+                            light: '#1a1a2e',
+                            cyan: '#00f0ff',
+                            pink: '#ff00f0',
+                            purple: '#b400ff',
+                            lime: '#00ffb4',
+                            matrix: '#00ff41'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Quantum Sans"', 'sans-serif'],
+                        mono: ['"Quantum Mono"', 'monospace']
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'text-glow': 'text-glow 2s ease-in-out infinite alternate'
+                    },
+                    keyframes: {
+                        'text-glow': {
+                            '0%': { 'text-shadow': '0 0 5px rgba(0, 240, 255, 0.3)' },
+                            '100%': { 'text-shadow': '0 0 15px rgba(0, 240, 255, 0.8)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #0a0a12;
+            color: #e0e0ff;
+            font-family: 'Quantum Sans', sans-serif;
+        }
+        
+        .quantum-panel {
+            background: rgba(26, 26, 46, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.1);
+        }
+        
+        .quantum-input {
+            background: rgba(10, 10, 18, 0.7);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            color: #00f0ff;
+            transition: all 0.3s ease;
+        }
+        
+        .quantum-input:focus {
+            outline: none;
+            border-color: #00f0ff;
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+        }
+        
+        .quantum-btn {
+            background: rgba(0, 240, 255, 0.1);
+            border: 1px solid rgba(0, 240, 255, 0.4);
+            color: #00f0ff;
+            transition: all 0.3s ease;
+        }
+        
+        .quantum-btn:hover {
+            background: rgba(0, 240, 255, 0.2);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+        }
+        
+        .grid-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(to right, rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+            background-size: 25px 25px;
+            pointer-events: none;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-pattern"></div>
+    
+    <div class="container mx-auto px-4 py-8">
+        <!-- Quantum Admin Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-quantum-cyan via-quantum-pink to-quantum-purple animate-text-glow">
+                QUANTUM <span class="text-quantum-cyan">ADMIN</span> PANEL
+            </h1>
+            <p class="text-lg text-quantum-cyan font-mono tracking-wider">
+                HOLOGRAPHIC POLL MANAGEMENT • 2090 EDITION
+            </p>
+        </header>
+        
+        <!-- Quantum Admin Content -->
+        <div class="quantum-panel rounded-xl p-6 mb-8">
+            <h2 class="text-2xl font-bold text-quantum-cyan mb-6">CREATE NEW QUANTUM POLL</h2>
+            
+            <form id="createPollForm" class="space-y-6">
+                <div>
+                    <label class="block text-quantum-cyan font-mono mb-2">POLL TITLE</label>
+                    <input type="text" name="title" required 
+                        class="quantum-input w-full px-4 py-3 rounded-lg font-mono">
+                </div>
+                
+                <div>
+                    <label class="block text-quantum-cyan font-mono mb-2">DESCRIPTION</label>
+                    <textarea name="description" 
+                        class="quantum-input w-full px-4 py-3 rounded-lg font-mono"></textarea>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-quantum-cyan font-mono mb-2">MEDIA TYPE</label>
+                        <select name="mediaType" 
+                            class="quantum-input w-full px-4 py-3 rounded-lg font-mono">
+                            <option value="none">None</option>
+                            <option value="image">Image</option>
+                            <option value="video">Video</option>
+                            <option value="hologram">Hologram</option>
+                        </select>
+                    </div>
+                    
+                    <div id="mediaUrlContainer">
+                        <label class="block text-quantum-cyan font-mono mb-2">MEDIA URL</label>
+                        <input type="text" name="mediaUrl" 
+                            class="quantum-input w-full px-4 py-3 rounded-lg font-mono">
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-quantum-cyan font-mono mb-2">OPTIONS (One per line)</label>
+                    <textarea name="options" required 
+                        class="quantum-input w-full px-4 py-3 rounded-lg font-mono h-32"
+                        placeholder="Option 1&#10;Option 2&#10;Option 3"></textarea>
+                </div>
+                
+                <div class="flex justify-end">
+                    <button type="submit" 
+                        class="quantum-btn px-6 py-3 rounded-lg font-mono text-lg">
+                        CREATE QUANTUM POLL
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Quantum Polls Management -->
+        <div class="quantum-panel rounded-xl p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-quantum-cyan">ACTIVE QUANTUM POLLS</h2>
+                <div class="relative w-64">
+                    <input type="text" id="adminSearch" placeholder="QUANTUM SEARCH..." 
+                        class="quantum-input w-full px-4 py-2 rounded-lg font-mono">
+                    <div class="absolute right-3 top-2.5 text-quantum-cyan">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="adminPollsContainer" class="space-y-6">
+                <!-- Quantum polls will be loaded here -->
+                <div class="text-center py-12">
+                    <div class="inline-block animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-quantum-cyan"></div>
+                    <p class="mt-4 text-quantum-cyan font-mono">ACCESSING QUANTUM DATABASE...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle media URL input
+        document.querySelector('select[name="mediaType"]').addEventListener('change', function() {
+            const container = document.getElementById('mediaUrlContainer');
+            container.style.display = this.value === 'none' ? 'none' : 'block';
+        });
+        
+        // Initialize media URL container
+        document.getElementById('mediaUrlContainer').style.display = 'none';
+        
+        // Create new quantum poll
+        document.getElementById('createPollForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const options = formData.get('options').split('\n')
+                .filter(opt => opt.trim())
+                .map(opt => opt.trim());
+                
+            if (options.length < 2) {
+                alert('At least 2 quantum options required');
+                return;
+            }
+            
+            const pollData = {
+                title: formData.get('title'),
+                description: formData.get('description'),
+                mediaType: formData.get('mediaType'),
+                mediaUrl: formData.get('mediaType') !== 'none' ? formData.get('mediaUrl') : undefined,
+                options: options
+            };
+            
+            try {
+                const button = e.target.querySelector('button[type="submit"]');
+                button.disabled = true;
+                button.innerHTML = `
+                    <span class="flex items-center justify-center">
+                        <span class="inline-block mr-2 animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-quantum-cyan"></span>
+                        CREATING QUANTUM ENTANGLEMENT...
+                    </span>
+                `;
+                
+                const response = await fetch('/api/polls', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(pollData)
+                });
+                
+                const { success, data: poll } = await response.json();
+                
+                if (success) {
+                    this.reset();
+                    document.getElementById('mediaUrlContainer').style.display = 'none';
+                    loadAdminPolls();
+                    showQuantumNotification('QUANTUM POLL CREATED SUCCESSFULLY', 'quantum-lime');
+                } else {
+                    showQuantumNotification('QUANTUM CREATION FAILED', 'quantum-pink');
+                }
+            } catch (error) {
+                console.error('Quantum creation error:', error);
+                showQuantumNotification('QUANTUM NETWORK ERROR', 'quantum-pink');
+            } finally {
+                const button = e.target.querySelector('button[type="submit"]');
+                button.disabled = false;
+                button.textContent = 'CREATE QUANTUM POLL';
+            }
+        });
+        
+        // Load admin polls
+        async function loadAdminPolls(search = '') {
+            try {
+                const container = document.getElementById('adminPollsContainer');
+                container.innerHTML = `
+                    <div class="text-center py-12">
+                        <div class="inline-block animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-quantum-cyan"></div>
+                        <p class="mt-4 text-quantum-cyan font-mono">QUERYING QUANTUM DATABASE...</p>
+                    </div>
+                `;
+                
+                const response = await fetch(`/api/polls${search ? `?search=${encodeURIComponent(search)}` : ''}`);
+                const { success, data: polls } = await response.json();
+                
+                if (!success || !polls || polls.length === 0) {
+                    container.innerHTML = `
+                        <div class="text-center py-12">
+                            <p class="text-quantum-pink font-mono">NO ACTIVE QUANTUM POLLS</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                container.innerHTML = '';
+                polls.forEach(poll => {
+                    const pollElement = document.createElement('div');
+                    pollElement.className = 'quantum-panel rounded-lg p-6';
+                    pollElement.innerHTML = `
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-xl font-bold text-quantum-cyan">${poll.title}</h3>
+                                <p class="text-quantum-cyan text-opacity-80">${poll.description || 'No description'}</p>
+                            </div>
+                            <div class="text-quantum-pink font-mono text-sm">${new Date(poll.createdAt).toLocaleDateString()}</div>
+                        </div>
+                        
+                        ${poll.mediaType === 'image' || poll.mediaType === 'hologram' ? `
+                            <div class="mb-4">
+                                <img src="${poll.mediaUrl}" alt="${poll.title}" class="max-w-full h-40 object-cover rounded-lg">
+                            </div>
+                        ` : ''}
+                        
+                        ${poll.mediaType === 'video' ? `
+                            <div class="mb-4">
+                                <video src="${poll.mediaUrl}" controls class="max-w-full h-40 object-cover rounded-lg"></video>
+                            </div>
+                        ` : ''}
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <h4 class="text-quantum-cyan font-mono mb-2">OPTIONS</h4>
+                                <ul class="space-y-2">
+                                    ${poll.options.map(option => `
+                                        <li class="flex justify-between items-center">
+                                            <span>${option.text}</span>
+                                            <span class="text-quantum-lime font-mono">${option.votes} QV</span>
+                                        </li>
+                                    `).join('')}
+                                </ul>
+                            </div>
+                            
+                            <div>
+                                <h4 class="text-quantum-cyan font-mono mb-2">STATISTICS</h4>
+                                <div class="space-y-2">
+                                    <div class="flex justify-between">
+                                        <span>Total Votes:</span>
+                                        <span class="text-quantum-lime font-mono">
+                                            ${poll.options.reduce((acc, opt) => acc + opt.votes, 0)}
+                                        </span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>Status:</span>
+                                        <span class="${poll.isActive ? 'text-quantum-lime' : 'text-quantum-pink'} font-mono">
+                                            ${poll.isActive ? 'ACTIVE' : 'INACTIVE'}
+                                        </span>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <span>Poll ID:</span>
+                                        <span class="text-quantum-cyan font-mono">${poll._id.slice(0, 8)}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex justify-end space-x-3">
+                            <button onclick="editQuantumPoll('${poll._id}')" 
+                                class="quantum-btn px-4 py-2 rounded-lg font-mono">
+                                EDIT
+                            </button>
+                            <button onclick="deleteQuantumPoll('${poll._id}')" 
+                                class="bg-quantum-pink bg-opacity-10 border border-quantum-pink text-quantum-pink px-4 py-2 rounded-lg font-mono hover:bg-opacity-20 transition">
+                                ${poll.isActive ? 'DEACTIVATE' : 'ACTIVATE'}
+                            </button>
+                        </div>
+                    `;
+                    container.appendChild(pollElement);
+                });
+            } catch (error) {
+                console.error('Quantum admin error:', error);
+                document.getElementById('adminPollsContainer').innerHTML = `
+                    <div class="text-center py-12">
+                        <p class="text-quantum-pink font-mono">QUANTUM NETWORK ERROR</p>
+                        <button onclick="loadAdminPolls()" class="quantum-btn mt-4 px-6 py-2 rounded-lg font-mono">
+                            RETRY CONNECTION
+                        </button>
+                    </div>
+                `;
+            }
+        }
+        
+        // Edit quantum poll
+        async function editQuantumPoll(pollId) {
+            // Implement edit functionality
+            showQuantumNotification('EDIT FUNCTIONALITY IN DEVELOPMENT', 'quantum-cyan');
+        }
+        
+        // Delete/Deactivate quantum poll
+        async function deleteQuantumPoll(pollId) {
+            if (confirm('QUANTUM CONFIRMATION: ARE YOU SURE?')) {
+                try {
+                    const response = await fetch(`/api/quantum/polls/${pollId}`, {
+                        method: 'DELETE'
+                    });
+                    
+                    const { success } = await response.json();
+                    
+                    if (success) {
+                        loadAdminPolls(document.getElementById('adminSearch').value);
+                        showQuantumNotification('QUANTUM POLL STATE UPDATED', 'quantum-lime');
+                    } else {
+                        showQuantumNotification('QUANTUM OPERATION FAILED', 'quantum-pink');
+                    }
+                } catch (error) {
+                    console.error('Quantum deletion error:', error);
+                    showQuantumNotification('QUANTUM NETWORK ERROR', 'quantum-pink');
+                }
+            }
+        }
+        
+        // Show quantum notification
+        function showQuantumNotification(message, color = 'quantum-cyan') {
+            const notification = document.createElement('div');
+            notification.className = `fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-quantum-dark border border-${color} text-${color} px-6 py-3 rounded-lg font-mono text-sm`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            setTimeout(() => {
+                notification.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+                setTimeout(() => notification.remove(), 300);
+            }, 2000);
+        }
+        
+        // Initialize admin search
+        document.getElementById('adminSearch').addEventListener('input', (e) => {
+            loadAdminPolls(e.target.value);
+        });
+        
+        // Load admin polls on page load
+        document.addEventListener('DOMContentLoaded', loadAdminPolls);
+    </script>
+</body>
+</html>
