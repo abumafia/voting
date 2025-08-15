@@ -449,6 +449,25 @@
                 document.getElementById('networkStatus').classList.add('text-quantum-pink');
             }
         });
+
+        // API so'rovlarini Netlify functions ga yo'naltirish
+const API_BASE = '/.netlify/functions/server';
+
+async function castVote(pollId, optionId) {
+  try {
+    const response = await fetch(`${API_BASE}/api/polls/${pollId}/vote`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ optionId })
+    });
+    
+    if (!response.ok) throw new Error('Vote failed');
+    return await response.json();
+  } catch (error) {
+    console.error('Voting error:', error);
+    alert('Ovoz berishda xatolik!');
+  }
+}
         
         // Cast quantum vote
         // Ovoz berish funksiyasini to'g'rilash
