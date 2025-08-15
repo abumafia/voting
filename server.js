@@ -4,9 +4,19 @@ const mongoose = require('mongoose');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 const rateLimit = require('express-rate-limit');
+const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+app.use(cors({
+  origin: [
+    'https://voteuz.netlify.app',
+    'https://voting-iota-gold.vercel.app',
+    'http://localhost:3000'
+  ],
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type']
+}));
 
 // Quantum MongoDB Connection
 mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://refbot:refbot00@gamepaymentbot.ffcsj5v.mongodb.net/voting?retryWrites=true&w=majority', {
