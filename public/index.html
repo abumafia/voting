@@ -324,7 +324,7 @@
                             <div class="w-16 h-16 border-4 border-quantum-cyan border-opacity-30 rounded-full"></div>
                             <div class="absolute top-0 left-0 w-16 h-16 border-4 border-t-quantum-cyan border-r-transparent border-b-transparent border-l-transparent rounded-full animate-spin"></div>
                         </div>
-                        <p class="mt-6 text-quantum-cyan font-mono">QUERYING QUANTUM DATABASE...</p>
+                        <p class="mt-6 text-quantum-cyan font-mono">QUERYING HALLAYM DATABASE...</p>
                     </div>
                 `;
                 
@@ -334,7 +334,7 @@
                 if (!success || !polls || polls.length === 0) {
                     pollsContainer.innerHTML = `
                         <div class="col-span-full text-center py-16">
-                            <p class="text-quantum-pink text-xl font-mono">NO ACTIVE QUANTUM POLLS</p>
+                            <p class="text-quantum-pink text-xl font-mono">NO ACTIVE HALLAYM POLLS</p>
                             <p class="text-quantum-cyan mt-2 font-mono">CREATE NEW POLL TO INITIATE DEMOCRACY</p>
                         </div>
                     `;
@@ -355,7 +355,7 @@
                                 <div>
                                     <h2 class="text-2xl font-bold text-quantum-cyan mb-2 neon-text">${poll.title}</h2>
                                     <div class="flex items-center space-x-3">
-                                        <span class="text-xs font-mono px-2 py-1 bg-quantum-dark rounded text-quantum-lime">QUANTUM-ENABLED</span>
+                                        <span class="text-xs font-mono px-2 py-1 bg-quantum-dark rounded text-quantum-lime">HALLAYM ENABLED</span>
                                         <span class="text-xs font-mono text-quantum-cyan opacity-80">${new Date(poll.createdAt).toLocaleDateString()}</span>
                                     </div>
                                 </div>
@@ -363,7 +363,7 @@
                             </div>
                             
                             <!-- Quantum Poll Description -->
-                            <p class="text-quantum-cyan text-opacity-80 mb-6">${poll.description || 'No quantum description provided'}</p>
+                            <p class="text-quantum-cyan text-opacity-80 mb-6">${poll.description || 'No hallaym description provided'}</p>
                             
                             <!-- Holographic Media -->
                             ${poll.mediaType === 'image' || poll.mediaType === 'hologram' ? `
@@ -438,7 +438,7 @@
                 console.error('Quantum retrieval error:', error);
                 document.getElementById('pollsContainer').innerHTML = `
                     <div class="col-span-full text-center py-16">
-                        <p class="text-quantum-pink text-xl font-mono">QUANTUM NETWORK ERROR</p>
+                        <p class="text-quantum-pink text-xl font-mono">HALLAYM NETWORK ERROR</p>
                         <p class="text-quantum-cyan mt-2 font-mono">ENTANGLEMENT FAILURE DETECTED</p>
                         <button onclick="loadQuantumPolls()" class="quantum-btn mt-4 px-6 py-2 rounded-lg font-mono">
                             REINITIALIZE CONNECTION
@@ -464,7 +464,7 @@ async function castQuantumVote(pollId, optionId) {
         `;
         button.disabled = true;
         
-        const response = await fetch(`/api/polls/${pollId}/vote`, {
+        const response = await fetch(`https://voting-toey.onrender.com/api/polls/${pollId}/vote`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
