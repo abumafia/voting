@@ -195,11 +195,14 @@ app.get('/p/:id', async (req, res) => {
         if (!poll || !poll.isActive) {
             return res.status(404).send(`
                 <!DOCTYPE html>
-                <html>
+                <html prefix="og: https://ogp.me/ns#">
                 <head>
-                    <title>Poll Not Found</title>
+                    <title>Poll Not Found | HALLAYM VOTE</title>
                     <meta property="og:title" content="Poll Not Found" />
                     <meta property="og:description" content="This quantum poll has collapsed or doesn't exist" />
+                    <meta property="og:image" content="https://voteuz.netlify.app/images/not-found.png" />
+                    <meta property="og:url" content="https://voteuz.netlify.app/p/${req.params.id}" />
+                    <meta property="og:type" content="website" />
                 </head>
                 <body>
                     <h1>Poll Not Found</h1>
@@ -213,34 +216,38 @@ app.get('/p/:id', async (req, res) => {
         const isBot = userAgent.includes('telegrambot') || 
                       userAgent.includes('twitterbot') || 
                       userAgent.includes('whatsapp') ||
-                      userAgent.includes('facebookexternalhit');
+                      userAgent.includes('facebookexternalhit') ||
+                      userAgent.includes('tiktok') ||
+                      userAgent.includes('instagram');
 
         if (isBot) {
             const html = `
                 <!DOCTYPE html>
                 <html prefix="og: https://ogp.me/ns#">
                 <head>
-                    <title>${poll.title}</title>
+                    <title>${poll.title} | HALLAYM VOTE</title>
                     <meta property="og:title" content="${poll.title}" />
                     <meta property="og:description" content="${poll.description || 'Cast your quantum vote now!'}" />
-                    <meta property="og:url" content="${poll.shortUrl}" />
+                    <meta property="og:url" content="https://voteuz.netlify.app/p/${poll._id}" />
                     <meta property="og:type" content="website" />
-                    ${poll.mediaType === 'image' || poll.mediaType === 'hologram' ? 
-                        `<meta property="og:image" content="${poll.mediaUrl}" />` : ''}
+                    ${poll.mediaUrl ? `<meta property="og:image" content="${poll.mediaUrl}" />` : 
+                     `<meta property="og:image" content="https://voteuz.netlify.app/images/default-preview.png" />`}
                     ${poll.mediaType === 'video' ? 
                         `<meta property="og:video" content="${poll.mediaUrl}" />` : ''}
-                    <meta name="twitter:card" content="${poll.mediaType === 'image' ? 'summary_large_image' : 'summary'}">
+                    <meta name="twitter:card" content="${poll.mediaType === 'image' || poll.mediaType === 'hologram' ? 'summary_large_image' : 'summary'}">
                     <meta name="theme-color" content="#00f0ff">
+                    <link rel="icon" href="https://voteuz.netlify.app/favicon.png" type="image/png">
                 </head>
                 <body style="background: #0a0a12; color: #e0e0ff; font-family: sans-serif; padding: 20px;">
-                    <div style="max-width: 800px; margin: 0 auto;">
+                    <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                        <img src="https://voteuz.netlify.app/images/logo.png" alt="HALLAYM VOTE" style="height: 60px; margin-bottom: 20px;">
                         <h1 style="color: #00f0ff; font-size: 2em;">${poll.title}</h1>
                         ${poll.description ? `<p style="font-size: 1.2em;">${poll.description}</p>` : ''}
-                        ${poll.mediaType === 'image' || poll.mediaType === 'hologram' ? 
+                        ${poll.mediaUrl && (poll.mediaType === 'image' || poll.mediaType === 'hologram') ? 
                             `<img src="${poll.mediaUrl}" alt="${poll.title}" style="max-width: 100%; border-radius: 8px; margin: 20px 0;">` : ''}
-                        ${poll.mediaType === 'video' ? 
+                        ${poll.mediaUrl && poll.mediaType === 'video' ? 
                             `<video src="${poll.mediaUrl}" controls style="max-width: 100%; border-radius: 8px; margin: 20px 0;"></video>` : ''}
-                        <a href="${poll.shortUrl}" style="display: inline-block; background: #00f0ff; color: #0a0a12; padding: 10px 20px; border-radius: 4px; text-decoration: none; font-weight: bold; margin-top: 20px;">
+                        <a href="https://voteuz.netlify.app/#poll-${poll._id}" style="display: inline-block; background: #00f0ff; color: #0a0a12; padding: 10px 20px; border-radius: 4px; text-decoration: none; font-weight: bold; margin-top: 20px;">
                             Vote Now
                         </a>
                     </div>
@@ -255,9 +262,12 @@ app.get('/p/:id', async (req, res) => {
         console.error('🌌 Quantum preview error:', err);
         res.status(500).send(`
             <!DOCTYPE html>
-            <html>
+            <html prefix="og: https://ogp.me/ns#">
             <head>
-                <title>Quantum Error</title>
+                <title>Quantum Error | HALLAYM VOTE</title>
+                <meta property="og:title" content="Quantum Error" />
+                <meta property="og:description" content="Quantum fluctuation detected. Try again later." />
+                <meta property="og:image" content="https://voteuz.netlify.app/images/error-preview.png" />
             </head>
             <body>
                 <h1>Quantum Fluctuation Detected</h1>
